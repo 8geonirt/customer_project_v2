@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Employee_Test < ActiveSupport::TestCase
+class EmployeeTest < ActiveSupport::TestCase
 
   def setup
     @employee = Employee.new(first_name:"Jose", last_name:"Espinoza",address:"Mi calle", email:"trinoeg8@gmail.com",phone_number:"3121078193",activated:false)
