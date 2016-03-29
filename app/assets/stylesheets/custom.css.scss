@@ -1,0 +1,20 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datepicker";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+body{
+  padding-top: 50px;
+}
+.table thead th {
+  color: #b9b9b9;
+  background-color: #222;
+}
+.title{
+  text-align:center;
+  font-weight: 200;
+  margin-bottom: 2%;
+}
+#employees_tbl{
+  margin-top: 1%;
+}
