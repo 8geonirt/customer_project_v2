@@ -4,11 +4,10 @@ class InputDeviceParser
   def self.parse_date date
     date = nil
     begin
-      date = Time.zone.date(date)
+      date = DateTime.strptime(date)
     rescue
-
     end
-
+    return date
   end
 
 end

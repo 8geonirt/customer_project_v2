@@ -1,1 +1,49 @@
-<h1>Index Page</h1>
+<h1 class="title">Employees</h1>
+<div class="container">
+  <% flash.each do |key, value| %>
+    <% if key == "danger" || key == "success" %>
+      <div class="alert alert-<%=key %>"><%=value%></div>
+    <% end %>
+  <% end %>
+</div>
+<div class="text-right">
+  <%= link_to '/manage/new', class:"btn btn-default" do %>
+    <i class="fa fa-plus">Add New</i>
+  <% end %>
+</div>
+<table id="employees_tbl" class="table table-striped table-bordered table-info">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th class="hidden-sm hidden-xs">Address</th>
+      <th>Email</th>
+      <th class="hidden-sm hidden-xs">Phone Number</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employees.each do |e| %>
+      <tr>
+        <td><%=e.id%></td>
+        <td><%=e.first_name%></td>
+        <td><%=e.last_name%></td>
+        <td class="hidden-sm hidden-xs"><%=e.address%></td>
+        <td><%=e.email%></td>
+        <td class="hidden-sm hidden-xs"><%=e.phone_number%></td>
+        <td class="text-center">
+          <%= link_to "manage/#{e.id}/arrival_report", class:"btn btn-default" do %>
+            <i class="fa fa-calendar-check-o" title="Review"></i>
+          <% end %>
+          <%= link_to "manage/#{e.id}/edit", class:"btn btn-default" do %>
+            <i class="fa fa-edit" title="Edit"></i>
+          <% end %>
+          <%= link_to "manage/#{e.id}/destroy",method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-default" do %>
+            <i class="fa fa-times" title="Delete"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

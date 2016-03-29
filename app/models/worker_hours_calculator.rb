@@ -45,7 +45,7 @@ class WorkerHoursCalculator
         hash = build_hash hash, current_day, worked_hours, hours_array[first_hour_pos - 1]
       elsif hours_array.index(hour) == hours_array.size - 1
         worked_hours = get_worked_hours(hours_array[first_hour_pos], hours_array[hours_array.size - 1])
-        hash = build_hash hash, hours_array[first_hour_pos], worked_hours, hours_array[first_hour_pos - 1]
+        hash = build_hash hash, hours_array[first_hour_pos], worked_hours, hours_array[hours_array.size - 1]
       end
     end
     return hash
