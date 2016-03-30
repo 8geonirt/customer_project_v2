@@ -48,9 +48,20 @@ class ManageController < ApplicationController
   end
 
   def arrival_report_section
-    if params[:id] && params[:from]
-      @working_periods = Employee.get_working_time_period params
-      render :layout => false
+    @working_periods = Employee.get_arrival_report params
+    render :layout => false
+  end
+
+  def working_time
+    if params[:id]
+      @working_time = Employee.get_working_time params
+      puts @working_time
+      if !@working_time[:is_available]
+        flash[:danger] = "You can not have access to the hour report, it is only available three days before the paycheck day."
+        redirect_to manage_index_path
+      end
+    else
+      redirect_to manage_index_path
     end
   end
 

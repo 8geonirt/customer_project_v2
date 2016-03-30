@@ -3,4 +3,3 @@
 //= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require bootstrap-datepicker/core
-//= require_tree .

@@ -39,5 +39,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.assets.precompile += %w( general.js )
-  config.assets.precompile += %w( working_time_periods.js )
+  config.assets.precompile += %w( working_time_period.js )
+  config.assets.precompile += %w( arrival_time_report.js )
 end
