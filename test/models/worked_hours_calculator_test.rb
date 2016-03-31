@@ -31,19 +31,19 @@ class WorkedHoursCalculatorTest < ActiveSupport::TestCase
   test 'Worked hours must be equals to 8' do
     @worked_days = [parse_hour(2016,3,28,9,0,0),parse_hour(2016,3,28,17,0,0)]
     result =  @calculator.calculate_worked_hours @worked_days
-    assert result[:total_worked], 8
+    assert_equal result[:total_worked], 8
   end
 
   test 'Difference of days between 2016-03-15 and 2016-04-01 must be equal to 16' do
     start_date = DateTime.parse("2016-03-15")
     end_date = DateTime.parse("2016-04-01")
-    assert @calculator.get_difference_days(start_date, end_date), 16
+    assert_equal @calculator.get_difference_days(start_date, end_date), 16
   end
 
   test 'Total days not worked must be equal to 16' do
     start_date = DateTime.parse("2016-03-15")
     end_date = DateTime.parse("2016-04-01")
-    assert @calculator.get_not_worked_days(start_date, end_date, 1), 16
+    assert_equal @calculator.get_not_worked_days(start_date, end_date, 1).size, 16
   end
 
 end

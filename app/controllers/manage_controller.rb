@@ -55,7 +55,6 @@ class ManageController < ApplicationController
   def working_time
     if params[:id]
       @working_time = Employee.get_working_time params
-      puts @working_time
       if !@working_time[:is_available]
         flash[:danger] = "You can not have access to the hour report, it is only available three days before the paycheck day."
         redirect_to manage_index_path
@@ -63,6 +62,10 @@ class ManageController < ApplicationController
     else
       redirect_to manage_index_path
     end
+  end
+
+  def not_worked_days
+
   end
 
   private
