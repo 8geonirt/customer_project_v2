@@ -3,11 +3,7 @@ require 'test_helper'
 class EmployeeTest < ActiveSupport::TestCase
 
   def setup
-    @employee = Employee.new(first_name:"Jose", last_name:"Espinoza",address:"Mi calle", email:"trinoeg8@gmail.com",phone_number:"3121078193",activated:false)
-  end
-
-  test 'Employee should be valid' do
-    assert @employee.valid?, "Invalid employee"
+    @employee = Employee.new(first_name:"Jose", last_name:"Espinoza",address:"Mi calle", email:"trinoeg8@gmail.com",phone_number:"3121078193")
   end
 
   test 'Employee first name should not be empty' do

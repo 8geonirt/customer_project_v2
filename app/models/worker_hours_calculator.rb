@@ -2,7 +2,7 @@ class WorkerHoursCalculator
 
   # Returns a hash containing the following keys: total_days, total_worked, also contains keys for every day the employee has been working on.
   # Params:
-  # +worked_days+:: Array of WorkingTime objects fetched from a database queryh (days recorded that the employee has been working)
+  # +worked_days+:: Array of WorkingTime objects fetched from a database query (days recorded that the employee has been working)
   # ==== Example:
   # worked_days = [WorkingTime.new(id:1, date: '2016-03-28 09:30:00'),WorkingTime.new(id:2, date: '2016-03-28 10:30:00'),WorkingTime.new(id:3, date: '2016-03-28 12:30:00')]
   # Result:
@@ -24,7 +24,28 @@ class WorkerHoursCalculator
     return hash
   end
 
+  def get_difference_days start_date, end_date
+    days_difference = (((end_date.to_time - start_date.to_time) / 1.days ).round(2) - 1)
+    days_difference *= -1 if days_difference < 0
+    return days_difference
+  end
+
+  def get_not_worked_days start_date, end_date, employee_id
+    not_worked_days = []
+    for i in 0..get_difference_days(start_date, end_date) + 1
+      current_date = start_date + i.days
+      if didnt_come_to_work? employee_id, current_date
+        not_worked_days << current_date
+      end
+    end
+    return not_worked_days
+  end
+
   private
+
+  def didnt_come_to_work? employee_id, date
+    WorkingTime.where("employee_id = ? and DATE(date) = ?",employee_id, date.strftime("%F")).size == 0
+  end
 
   # Returns true if the days given are different
   def is_different_day? day1, day2

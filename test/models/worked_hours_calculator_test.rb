@@ -24,7 +24,7 @@ class WorkedHoursCalculatorTest < ActiveSupport::TestCase
     @worked_days << WorkingTime.new(id:8, date: '2016-04-01 18:30')
   end
 
-  test 'Recorder hours must be greater than 1 record in order to calculate worked hours' do
+  test 'Recorded hours must be greater than 1 in order to calculate worked hours' do
     assert @worked_days.size > 1
   end
 
@@ -32,6 +32,18 @@ class WorkedHoursCalculatorTest < ActiveSupport::TestCase
     @worked_days = [parse_hour(2016,3,28,9,0,0),parse_hour(2016,3,28,17,0,0)]
     result =  @calculator.calculate_worked_hours @worked_days
     assert result[:total_worked], 8
+  end
+
+  test 'Difference of days between 2016-03-15 and 2016-04-01 must be equal to 16' do
+    start_date = DateTime.parse("2016-03-15")
+    end_date = DateTime.parse("2016-04-01")
+    assert @calculator.get_difference_days(start_date, end_date), 16
+  end
+
+  test 'Total days not worked must be equal to 16' do
+    start_date = DateTime.parse("2016-03-15")
+    end_date = DateTime.parse("2016-04-01")
+    assert @calculator.get_not_worked_days(start_date, end_date, 1), 16
   end
 
 end
