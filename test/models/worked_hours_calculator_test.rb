@@ -43,7 +43,7 @@ class WorkedHoursCalculatorTest < ActiveSupport::TestCase
   test 'Total days not worked must be equal to 16' do
     start_date = DateTime.parse("2016-03-15")
     end_date = DateTime.parse("2016-04-01")
-    assert_equal @calculator.get_not_worked_days(start_date, end_date, 1).size, 16
+    assert_equal @calculator.get_not_worked_days(start_date, end_date, 1).size, 18
   end
 
 end
