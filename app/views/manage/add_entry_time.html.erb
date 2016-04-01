@@ -1,20 +1,70 @@
-<h1 class="title">Enter Time</h1>
+<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 <div class="container">
+  <h1 class="title">Enter Entry Time</h1>
+  <h2 class="text-left subtitle">Employee: <%= "#{@employee.first_name} #{@employee.last_name}"%></h2>
+  <%=form_tag("/manage/save_entry", method: "post") do %>
+    <input type="hidden" name="employee_id" value="<%=@employee.id%>" />
     <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
+      <div class="col-sm-2">
+        <label>Date: </label>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group date calendar">
+          <input type="text" class="form-control" id="date" name="date">
+          <div class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+          </div>
         </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
+      </div>
+    </div>
+    </br>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Arrival time: </label>
+      </div>
+      <div class='col-sm-3'>
+        <div class="form-group">
+          <div class='input-group date time'>
+            <input type='text' id="arrival_time" name="arrival_time" class="form-control" />
+            <span class="input-group-addon">
+              <span class="fa fa-clock-o"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>Departur time: </label>
+      </div>
+      <div class='col-sm-3'>
+        <div class="form-group">
+          <div class='input-group date time'>
+            <input type='text' id="departure_time" name="departure_time" class="form-control" />
+            <span class="input-group-addon">
+              <span class="fa fa-clock-o"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
     </div>
 </div>
+<% end %>
+<script type="text/javascript">
+$(document).on("ready",function(){
+  $(".time").datetimepicker({
+    format: "LT"
+  });
+  $(".calendar").datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true
+  });
+});
+</script>

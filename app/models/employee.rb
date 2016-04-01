@@ -36,6 +36,19 @@ class Employee < ActiveRecord::Base
     return hash
   end
 
+  def self.save_record_time? params
+    begin
+      working_time1 = WorkingTime.new(employee_id: params[:employee_id], date: DateTime.parse("#{params[:date]} #{params[:arrival_time]}"))
+      working_time2 = WorkingTime.new(employee_id: params[:employee_id], date: DateTime.parse("#{params[:date]} #{params[:departure_time]}"))
+      working_time1.save
+      working_time2.save
+      return true
+    rescue Exception => ex
+      puts "Exception: #{ex.message}"
+      return false
+    end
+  end
+
   private
 
   def self.review_is_available? day1, day2

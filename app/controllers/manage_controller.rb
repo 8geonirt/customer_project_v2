@@ -64,8 +64,22 @@ class ManageController < ApplicationController
     end
   end
 
-  def not_worked_days
+  def add_entry_time
+    if params[:id]
+      @employee = Employee.find(params[:id])
+    end
+  end
 
+  def save_entry
+    if params[:employee_id]
+      puts params
+      if Employee.save_record_time? params
+        flash[:success] = "Entry recorded successfully"
+        redirect_to manage_index_path
+      end
+    else
+      redirect_to manage_index_path
+    end
   end
 
   private

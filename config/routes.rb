@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'manage/:id/working_time/section' => 'manage#working_time_section'
   get 'manage/:id/not_worked_days' => 'manage#not_worked_days'
   get 'manage/:id/not_worked_days/section' => 'manage#not_worked_days_section'
+  get 'manage/:id/add_entry_time' => 'manage#add_entry_time'
+  post 'manage/save_entry' => 'manage#save_entry'
   namespace :api do
     resources :control
   end
