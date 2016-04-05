@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :employees
   root 'manage#index'
   resources :manage
   delete 'manage/:id/destroy' => 'manage#destroy'
