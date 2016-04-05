@@ -13,7 +13,12 @@ class Employee < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
   def self.get_arrival_report params
-    get_worked_hours get_worked_days(params)
+    if params[:option] == "arrival_report"
+      return get_worked_hours get_worked_days(params)
+    else
+      calculator = WorkerHoursCalculator.new
+      return calculator.get_not_worked_days DateTime.parse(params[:from]), DateTime.parse(params[:to]), params[:id]
+    end
   end
 
   def self.get_working_time params
