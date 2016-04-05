@@ -32,16 +32,24 @@ class WorkerHoursCalculator
 
   def get_not_worked_days start_date, end_date, employee_id
     not_worked_days = []
-    for i in 0..get_difference_days(start_date, end_date) + 1
-      current_date = start_date + i.days
-      if didnt_come_to_work? employee_id, current_date
-        not_worked_days << current_date
+    if start_date != "" && end_date != ""
+      start_date = DateTime.parse(start_date)
+      end_date = DateTime.parse(end_date)
+      for i in 0..get_difference_days(start_date, end_date) + 1
+        current_date = start_date + i.days
+        if  !is_weekend?(current_date) && didnt_come_to_work?(employee_id, current_date)
+          not_worked_days << current_date
+        end
       end
     end
     return not_worked_days
   end
 
   private
+
+  def is_weekend? date
+    date.saturday? || date.sunday?
+  end
 
   def didnt_come_to_work? employee_id, date
     WorkingTime.where("employee_id = ? and DATE(date) = ?",employee_id, date.strftime("%F")).size == 0

@@ -17,7 +17,7 @@ class Employee < ActiveRecord::Base
       return get_worked_hours get_worked_days(params)
     else
       calculator = WorkerHoursCalculator.new
-      return calculator.get_not_worked_days DateTime.parse(params[:from]), DateTime.parse(params[:to]), params[:id]
+      return calculator.get_not_worked_days params[:from], params[:to], params[:id]
     end
   end
 

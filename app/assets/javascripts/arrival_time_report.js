@@ -1,9 +1,13 @@
 var loadReport = function(){
-  data = {from: $("#from").val().trim(), to: $("#to").val().trim(), id:$("#employee_id").val(), option: $("#option_report").val()};
-  var build = function(){
-    buildTable("working_time_tbl");
-  };
-  loadAjaxSection('/manage/arrival_report/'+$("#employee_id").val()+"/section/",data,"tbl_section",build);
+  if($("#from").val().trim() != ""){
+    data = {from: $("#from").val().trim(), to: $("#to").val().trim(), id:$("#employee_id").val(), option: $("#option_report").val()};
+    var build = function(){
+      buildTable("working_time_tbl");
+    };
+    loadAjaxSection('/manage/arrival_report/'+$("#employee_id").val()+"/section/",data,"tbl_section",build);
+  }else{
+    $("#tbl_section").children().remove();
+  }
 }
 $(document).on("ready",function(){
   $(".date").datepicker({
@@ -11,11 +15,7 @@ $(document).on("ready",function(){
     autoclose: true
   });
   $(".date").on("change",function(){
-    if($("#from").val().trim() != ""){
       loadReport();
-    }else{
-      $("#tbl_section").children().remove();
-    }
   });
   $('[data-toggle="buttons"] > .btn').on('click',function() {
     var button = $(this).find("input")[0];
