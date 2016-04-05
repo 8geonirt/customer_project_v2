@@ -12,7 +12,13 @@ class Employee < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
-  def self.get_arrival_report params
+  # Returns a report depending on the params[:option] value
+  # params[:option] = "arrival_report" > Report containing the total of worked hours
+  # in a range of dates, and an array containing the arrival hour and departure hour
+  # of a specific day
+  # params[:option] = "days_not_worked" > Report containing the total of not worked
+  # days in a range of dates, and an array containing the not worked days
+  def self.get_report params
     if params[:option] == "arrival_report"
       return get_worked_hours get_worked_days(params)
     else
@@ -21,6 +27,9 @@ class Employee < ActiveRecord::Base
     end
   end
 
+  # Returns a hash containing the worked days of an employee in a "quincena", it also
+  # calculates if the report will be available depending on the current date.
+  # (This report will be only available three days before the paycheck day)
   def self.get_working_time params
     hash = Hash.new([])
     now = Time.now
@@ -45,6 +54,8 @@ class Employee < ActiveRecord::Base
     return hash
   end
 
+  # Saves an arrival time and a departure time of an employee in a specific day
+  # This option must be available only for the administrator
   def self.save_record_time? params
     begin
       working_time1 = WorkingTime.new(employee_id: params[:employee_id], date: DateTime.parse("#{params[:date]} #{params[:arrival_time]}"))
@@ -60,6 +71,9 @@ class Employee < ActiveRecord::Base
 
   private
 
+  # Check if the difference of the first payday and second payday with the actual date is
+  # equals to 3, if so, the review will be availble for the employee, if not, an error message
+  #  Owill be displayed to the employee
   def self.review_is_available? day1, day2
     return true
 =begin    now = Time.now
@@ -69,6 +83,8 @@ class Employee < ActiveRecord::Base
 =end
   end
 
+  # Returns an array containing the worked days in a specific day or in a range of days of
+  # an employee
   def self.get_worked_days params
     if params[:to] != ""
       worked_days = WorkingTime.where("employee_id = ? and DATE(date) >= ? and DATE(date) <= ?",params[:id],params[:from], params[:to]).order(:date)
@@ -78,6 +94,8 @@ class Employee < ActiveRecord::Base
     return worked_days
   end
 
+  # Returns a hash containing the worked hours of and employee
+  # Check WorkerHoursCalculator for an specific documentation
   def self.get_worked_hours worked_days
     calculator = WorkerHoursCalculator.new
     calculator.calculate_worked_hours worked_days

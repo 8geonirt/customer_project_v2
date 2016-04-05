@@ -24,12 +24,14 @@ class WorkerHoursCalculator
     return hash
   end
 
+  # Returns the difference in days between two dates
   def get_difference_days start_date, end_date
     days_difference = (((end_date.to_time - start_date.to_time) / 1.days ).round(2) - 1)
     days_difference *= -1 if days_difference < 0
     return days_difference
   end
 
+  # Returns an array containing the not worked days in a range of days for a specific employee.
   def get_not_worked_days start_date, end_date, employee_id
     not_worked_days = []
     if start_date != "" && end_date != ""

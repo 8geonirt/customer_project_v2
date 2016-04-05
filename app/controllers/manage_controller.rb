@@ -48,7 +48,7 @@ class ManageController < ApplicationController
   end
 
   def arrival_report_section
-    @working_periods = Employee.get_arrival_report params
+    @working_periods = Employee.get_report params
     render :layout => false
   end
 
