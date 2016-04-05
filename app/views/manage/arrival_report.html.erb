@@ -19,6 +19,19 @@
     </div>
   </div>
 </div>
+<br/>
+<br/>
+<div class="btn-group" data-toggle="buttons">
+  <label class="btn btn-primary active">
+    <i class="fa fa-clock-o"></i>
+    <input type="radio" name="options" id="option1" val="1" class="arrival_report" autocomplete="off" checked> Arrival Report
+  </label>
+  <label class="btn btn-primary">
+    <i class="fa fa-calendar-o"></i>
+    <input type="radio" name="options" class="days_not_worked" id="option2" val="2" autocomplete="off"> Days Not Worked Report
+  </label>
+</div>
 <div id="tbl_section"></div>
 <input type="hidden" name="employee_id" id="employee_id" value="<%=@employee.id%>">
+<input type="hidden" name"option_report" id="option_report">
 <%=javascript_include_tag 'arrival_time_report' %>

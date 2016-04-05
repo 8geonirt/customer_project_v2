@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'manage/:id/not_worked_days/section' => 'manage#not_worked_days_section'
   get 'manage/:id/add_entry_time' => 'manage#add_entry_time'
   post 'manage/save_entry' => 'manage#save_entry'
+  get 'employee/' => 'employee#index'
+  get 'employee/profile' => 'employee#profile'
   namespace :api do
     resources :control
   end

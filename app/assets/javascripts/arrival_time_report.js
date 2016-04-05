@@ -14,4 +14,9 @@ $(document).on("ready",function(){
       $("#tbl_section").children().remove();
     }
   });
+  $('[data-toggle="buttons"] > .btn').on('click',function() {
+    var button = $(this).find("input")[0];
+    console.log($(button).attr("class"));
+    $('#option_report').val($(button).attr("class"));
+  });
 });
