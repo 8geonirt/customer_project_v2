@@ -3,9 +3,8 @@
 class Employee < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
   validates :first_name, presence: true, length: { minimum: 3, maximum: 100}
   validates :last_name, presence: true, length: { minimum: 3, maximum: 100}
   validates :address, presence: true, length: { minimum: 3, maximun: 100}

@@ -72,7 +72,6 @@ class ManageController < ApplicationController
 
   def save_entry
     if params[:employee_id]
-      puts params
       if Employee.save_record_time? params
         flash[:success] = "Entry recorded successfully"
         redirect_to manage_index_path
