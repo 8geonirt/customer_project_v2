@@ -1,5 +1,7 @@
 class ManageController < ApplicationController
 
+  before_action :is_not_admin?
+
   def index
     @employees = Employee.all
   end
@@ -86,4 +88,11 @@ class ManageController < ApplicationController
   def employee_params
     params.require(:employee).permit(:first_name, :last_name, :email, :phone_number, :address, :password)
   end
+
+  def is_not_admin?
+    if !current_employee.admin?
+      redirect_to home_unauthorized_path
+    end
+  end
+
 end

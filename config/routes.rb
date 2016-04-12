@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post 'manage/save_entry' => 'manage#save_entry'
   get 'employee/' => 'employee#index'
   get 'employee/profile' => 'employee#profile'
+  get 'home/' => 'home#index'
+  get 'home/unauthorized' => 'home#unauthorized'
   namespace :api do
     resources :control
   end
