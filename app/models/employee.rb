@@ -72,7 +72,7 @@ class Employee < ActiveRecord::Base
 
   # Check if the difference of the first payday and second payday with the actual date is
   # equals to 3, if so, the review will be availble for the employee, if not, an error message
-  #  Owill be displayed to the employee
+  # will be displayed to the employee
   def self.review_is_available? day1, day2
     return true
 =begin    now = Time.now
